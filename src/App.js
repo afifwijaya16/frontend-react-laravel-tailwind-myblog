@@ -1,7 +1,11 @@
+import Navbar from "./components/navbar/Navbar";
+import Sidebar from "./components/sidebar/Sidebar";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Halo</h1>
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <Sidebar />
     </div>
   );
 }

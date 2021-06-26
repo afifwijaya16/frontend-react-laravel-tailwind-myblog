@@ -1,12 +1,12 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
-
+import SubMenu from "./SubMenu";
+import { SidebarData } from "./SidebarData";
 const Sidebar = ({ sidebar, showSidebar }) => {
-  console.log("ini sidebar dari sidebar");
   return (
     <>
       <div
-        className={`fixed left-0 top-0 w-72 h-full bg-gray-800 shadow-lg z-50 lg:block ${
+        className={`h-full fixed top-0 left-0 w-72 bg-gray-800 shadow-lg z-50 lg:block ${
           sidebar ? "hidden" : ""
         }`}
       >
@@ -26,7 +26,11 @@ const Sidebar = ({ sidebar, showSidebar }) => {
             />
           </div>
         </div>
-        <div className="flex h-screen"></div>
+        <div className="overflow-y-auto h-90v">
+          {SidebarData.map((item, index) => {
+            return <SubMenu item={item} key={index} />;
+          })}
+        </div>
       </div>
     </>
   );

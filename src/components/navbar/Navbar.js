@@ -1,7 +1,6 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
 const Navbar = ({ showSidebar }) => {
-  console.log("ini sidebar dari nav");
   return (
     <>
       <div className="h-16 shadow-sm pl-8 lg:pl-80 fixed w-full top-0 left-0 flex items-center z-50">

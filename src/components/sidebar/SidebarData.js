@@ -2,64 +2,38 @@ import React from "react";
 
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
+// import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
+import * as BsIcons from "react-icons/bs";
+import * as CgIcons from "react-icons/cg";
 
 export const SidebarData = [
   {
     title: "Home",
     path: "/",
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiIcons.AiFillHome className="w-5 h-5 rounded-full" />,
+  },
+  {
+    title: "Profil",
+    path: "/profil",
+    icon: <CgIcons.CgProfile className="w-5 h-5 rounded-full" />,
   },
   {
     title: "Data Master",
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiIcons.AiFillDashboard className="w-5 h-5 rounded-full" />,
     iconClosed: <RiIcons.RiArrowDownFill />,
     iconOpened: <RiIcons.RiArrowUpFill />,
     subNav: [
       {
-        title: "Users",
-        path: "/overview/users",
-        icon: <IoIcons.IoIosPaper />,
+        title: "Category",
+        path: "/category",
+        icon: <FaIcons.FaListAlt className="w-5 h-5 rounded-full" />,
       },
       {
-        title: "Revenue",
-        path: "/overview/revenue",
-        icon: <IoIcons.IoIosPaper />,
+        title: "Post",
+        path: "/post",
+        icon: <BsIcons.BsFilePost className="w-5 h-5 rounded-full" />,
       },
     ],
-  },
-  {
-    title: "Reports",
-    icon: <AiIcons.AiFillFile />,
-    iconClosed: <RiIcons.RiArrowDownFill />,
-    iconOpened: <RiIcons.RiArrowUpFill />,
-    subNav: [
-      {
-        title: "Reports 1",
-        path: "/reports/report1",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Reports 2",
-        path: "/reports/report2",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Reports 3",
-        path: "/reports/report3",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Products",
-    path: "/products",
-    icon: <FaIcons.FaCartPlus />,
-  },
-  {
-    title: "Team",
-    path: "/team",
-    icon: <IoIcons.IoMdPeople />,
   },
 ];

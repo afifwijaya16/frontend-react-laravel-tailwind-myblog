@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
+  const location = useLocation();
 
   const showSubnav = () => {
     setSubnav(!subnav);
@@ -13,11 +14,13 @@ const SubMenu = ({ item }) => {
       <Link
         to={item.subNav ? "#" : item.path}
         onClick={item.subNav && showSubnav}
-        class="flex items-center justify-between p-2 hover:bg-gray-200 rounded-lg transition-all"
+        className={`my-1 flex items-center justify-between p-2 hover:bg-gray-200 rounded-lg transition-all  ${
+          item.path === location.pathname ? "bg-gray-200" : ""
+        }`}
       >
         <div className="flex items-center">
           {item.icon}
-          <span class="ml-4 font-semibold">{item.title}</span>
+          <span className="ml-4 font-semibold">{item.title}</span>
         </div>
         <div className="flex items-center">
           {item.subNav && subnav
@@ -31,7 +34,9 @@ const SubMenu = ({ item }) => {
         item.subNav.map((item, index) => {
           return (
             <Link
-              className="flex items-center justify-between p-2 hover:bg-gray-200 rounded-lg transition-all px-5 mx-5"
+              className={`my-1 flex items-center justify-between p-2 hover:bg-gray-200 rounded-lg transition-all px-5 mx-5
+                ${item.path === location.pathname ? "bg-gray-200" : ""}
+              `}
               to={item.path}
               key={index}
             >

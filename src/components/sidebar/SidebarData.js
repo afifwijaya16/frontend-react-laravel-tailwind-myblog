@@ -14,8 +14,8 @@ export const SidebarData = [
     icon: <AiIcons.AiFillHome className="w-5 h-5 rounded-full" />,
   },
   {
-    title: "Profil",
-    path: "/profil",
+    title: "Profile",
+    path: "/profile",
     icon: <CgIcons.CgProfile className="w-5 h-5 rounded-full" />,
   },
   {

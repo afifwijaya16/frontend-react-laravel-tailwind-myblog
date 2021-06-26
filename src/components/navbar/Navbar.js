@@ -1,28 +1,32 @@
 import React from "react";
-import * as FaIcon from "react-icons/fa";
-const Navbar = () => {
+import * as FaIcons from "react-icons/fa";
+const Navbar = ({ showSidebar }) => {
+  console.log("ini sidebar dari nav");
   return (
     <>
       <div className="h-16 shadow-sm pl-8 lg:pl-80 fixed w-full top-0 left-0 flex items-center z-50">
-        <div class="w-6 cursor-pointer lg:hidden">
-          <FaIcon.FaBars class="h-6 w-6" />
+        <div className="w-6 cursor-pointer lg:hidden">
+          <FaIcons.FaBars
+            className="h-6 w-6 hover:text-red-600"
+            onClick={showSidebar}
+          />
         </div>
-        <div class="relative hidden lg:block lg:transition">
-          <FaIcon.FaSearch class="absolute left-2 top-3 w-6 text-gray-400" />
+        <div className="relative hidden lg:block lg:transition">
+          <FaIcons.FaSearch className="absolute left-2 top-3 w-6 text-gray-400" />
           <input
             type="text"
-            class="block w-72 shadow border-none rounded-3xl focus:outline-none py-2 bg-gray-200 text-base text-gray-600 pl-11 pr-5"
+            className="block w-72 shadow border-none rounded-3xl focus:outline-none py-2 bg-gray-200 text-base text-gray-600 pl-11 pr-5"
             placeholder="Search"
           />
         </div>
-        <div class="ml-auto items-center flex">
+        <div className="ml-auto items-center flex">
           <div>
-            <FaIcon.FaBell class="w-6 cursor-pointer text-gray-600" />
+            <FaIcons.FaBell className="w-6 cursor-pointer text-gray-600" />
           </div>
-          <div class="mx-4 relative">
-            <div class="cursor-pointer">
+          <div className="mx-4 relative">
+            <div className="cursor-pointer">
               <img
-                class="h-8 w-8 rounded-full object-cover"
+                className="h-8 w-8 rounded-full object-cover"
                 src="https://ui-avatars.com/api/?name=Afif+Wijaya?background=0D8ABC&color=2980b9"
                 alt="avatar"
               />

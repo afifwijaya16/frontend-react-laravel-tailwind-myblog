@@ -15,7 +15,7 @@ function App() {
   };
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100">
+      <div className="flex flex-col h-screen">
         <Navbar showSidebar={showSidebar} />
         <Sidebar sidebar={sidebar} showSidebar={showSidebar} />
         <Switch>

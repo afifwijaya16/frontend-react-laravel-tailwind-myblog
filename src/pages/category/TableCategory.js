@@ -66,7 +66,7 @@ const TableCategory = () => {
         <tbody>
           {loading ? (
             <tr className="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">
-              <td className="px-4 py-4 text-center " colSpan="3">
+              <td className="px-4 py-3 text-center " colSpan="3">
                 <div className="flex justify-center items-center">
                   <FaIcons.FaSpinner className="animate-spin mr-2" /> Loading
                 </div>
@@ -79,19 +79,19 @@ const TableCategory = () => {
                   key={index}
                   className="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0"
                 >
-                  <td className="px-4 py-4">{index + 1}</td>
-                  <td className="px-4 py-4">{item.category}</td>
+                  <td className="px-4 py-3">{index + 1}</td>
+                  <td className="px-4 py-3">{item.category}</td>
                   <td className="text-center">
                     <div className="flex item-center justify-center">
-                      <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer">
-                        <FaIcons.FaTrash
-                          onClick={() => handleRemove(item.id)}
-                        />
-                      </div>
                       <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer">
                         <Link to={`/category/update/${item.id}`}>
                           <FaIcons.FaEdit />
                         </Link>
+                      </div>
+                      <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+                        <FaIcons.FaTrash
+                          onClick={() => handleRemove(item.id)}
+                        />
                       </div>
                     </div>
                   </td>

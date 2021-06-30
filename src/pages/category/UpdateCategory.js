@@ -49,7 +49,7 @@ const UpdateCategory = () => {
   return (
     <div className="h-90v overflow-y-auto pt-5 pb-5 pl-8 pr-8 lg:pl-80 z-10">
       <div>
-        <Breadcrumb title="Create Category" />
+        <Breadcrumb title="Update Category" />
         <div className="flex items-center mt-4">
           <Link
             to="/category"

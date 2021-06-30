@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 const TableCategory = () => {
   const [categories, setCategories] = useState([]);
+  const [informationCategories, setInformationCategories] = useState([]);
   const [filteredData, setFilteredData] = useState(categories);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ const TableCategory = () => {
     getCategories()
       .then((res) => {
         setCategories(res.data.data.data);
+        setInformationCategories(res.data);
         setFilteredData(res.data.data.data);
         setLoading(false);
       })
@@ -25,7 +27,7 @@ const TableCategory = () => {
         setLoading(false);
       });
   };
-
+  console.log(informationCategories);
   useEffect(() => {
     loadCategories();
   }, []);
@@ -65,6 +67,7 @@ const TableCategory = () => {
     getCategorySearch(search)
       .then((res) => {
         setFilteredData(res.data.data.data);
+        setInformationCategories(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -147,6 +150,11 @@ const TableCategory = () => {
           )}
         </tbody>
       </table>
+      <div className="w-full flex justify-between">
+        <div className="flex items-center">
+          <h1>Total Data : {informationCategories.data.total}</h1>
+        </div>
+      </div>
     </div>
   );
 };

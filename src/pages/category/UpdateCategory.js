@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-import { Link, useHistory } from "react-router-dom";
+import { useParams } from "react-router";
 import * as FaIcons from "react-icons/fa";
-import { createCategory } from "../../function/category";
+import { Link, useHistory } from "react-router-dom";
+import { getCategory, categoryUpdate } from "../../function/category";
 import Swal from "sweetalert2";
-
-const CreateCategory = () => {
+const UpdateCategory = () => {
+  const { id } = useParams();
   let history = useHistory();
   const [category, setCategory] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadCategory = () => {
+      getCategory(id)
+        .then((res) => {
+          setCategory(res.data.data.category);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    loadCategory();
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +31,11 @@ const CreateCategory = () => {
     const postBody = {
       category: category,
     };
-    const response = await createCategory(postBody);
+    const response = await categoryUpdate(id, postBody);
     if (response.data.success) {
       setCategory("");
       Swal.fire({
-        title: `${response.data.data.category} is created`,
+        title: `${response.data.data.category} is updated`,
         icon: "success",
       });
       setLoading(false);
@@ -75,7 +89,7 @@ const CreateCategory = () => {
                       className="bg-green-600 text-gray-200 rounded hover:bg-green-500 px-4 py-1 focus:outline-none
                   flex items-center"
                     >
-                      <FaIcons.FaSave className="mr-2" /> Save
+                      <FaIcons.FaSave className="mr-2" /> Update
                     </button>
                   )}
                 </div>
@@ -88,4 +102,4 @@ const CreateCategory = () => {
   );
 };
 
-export default CreateCategory;
+export default UpdateCategory;

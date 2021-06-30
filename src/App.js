@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Category from "./pages/category/Category";
 import CreateCategory from "./pages/category/CreateCategory";
+import UpdateCategory from "./pages/category/UpdateCategory";
 import Post from "./pages/Post";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" exact component={Profile} />
           <Route path="/category" exact component={Category} />
           <Route path="/category/create" exact component={CreateCategory} />
+          <Route path="/category/update/:id" exact component={UpdateCategory} />
           <Route path="/post" exact component={Post} />
         </Switch>
       </div>

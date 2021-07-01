@@ -1,11 +1,13 @@
 import axios from "axios";
 
-export const getCategories = async () =>
-  await axios.get(`http://localhost/react-laravel-myblog/api/category`);
-
-export const getCategorySearch = async (search) =>
+export const getCategories = async (page, limit) =>
   await axios.get(`http://localhost/react-laravel-myblog/api/category`, {
-    params: { search: search },
+    params: { page: page, limit: limit },
+  });
+
+export const getCategorySearch = async (page, search, limit) =>
+  await axios.get(`http://localhost/react-laravel-myblog/api/category`, {
+    params: { page: page, search: search, limit: limit },
   });
 
 export const getCategory = async (id) =>

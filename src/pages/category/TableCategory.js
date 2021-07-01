@@ -19,7 +19,7 @@ const TableCategory = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [addrtypeLimit, setAddrtypeLimit] = useState([5, 10, 100]);
+  const [addrtypeLimit] = useState([5, 10, 100]);
   const Add = addrtypeLimit.map((Add) => Add);
 
   const loadCategories = () => {
@@ -35,10 +35,6 @@ const TableCategory = () => {
         setLoading(false);
       });
   };
-
-  useEffect(() => {
-    loadCategories();
-  }, []);
 
   const handleRemove = (id) => {
     setLoading(true);
@@ -141,6 +137,10 @@ const TableCategory = () => {
       });
   };
 
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
   return (
     <div className="block overflow-x-auto mt-5">
       <div className="w-full flex justify-between my-3">
@@ -150,8 +150,10 @@ const TableCategory = () => {
             onChange={(e) => handleAddrTypeChange(e)}
             className="h-full rounded-sm border block appearance-none w-1/2 bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           >
-            {Add.map((address, key) => (
-              <option value={key}>{address}</option>
+            {Add.map((item, key) => (
+              <option key={key} value={key}>
+                {item}
+              </option>
             ))}
           </select>
         </div>

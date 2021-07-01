@@ -5,9 +5,9 @@ const Pagination = ({ currentPage_data, pages, paginate }) => {
   const [currentPage, setCurrentPage] = useState(currentPage_data);
   let maxPages = pages - 2;
   let items = [];
-  let leftSide = currentPage - 2;
+  let leftSide = currentPage - 1;
   if (leftSide <= 0) leftSide = 1;
-  let rightSide = currentPage + 2;
+  let rightSide = currentPage + 1;
   if (rightSide > maxPages) rightSide = maxPages;
   for (let number = leftSide; number <= rightSide; number++) {
     items.push(

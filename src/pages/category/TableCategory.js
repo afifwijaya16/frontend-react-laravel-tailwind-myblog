@@ -7,27 +7,35 @@ import {
   removeCategory,
 } from "../../function/category";
 import { Link } from "react-router-dom";
+import Pagination from "../../components/pagination/Pagination";
+
 const TableCategory = () => {
   const [categories, setCategories] = useState([]);
-  const [informationCategories, setInformationCategories] = useState([]);
-  const [filteredData, setFilteredData] = useState(categories);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limitCategories, setLimiCategories] = useState(5);
+
+  const [totalCategories, setTotalCategories] = useState(0);
+  const [linkCategories, setLinkCategories] = useState(0);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [addrtypeLimit, setAddrtypeLimit] = useState([5, 10, 100]);
+  const Add = addrtypeLimit.map((Add) => Add);
+
   const loadCategories = () => {
     setLoading(true);
-    getCategories()
+    getCategories(currentPage, limitCategories)
       .then((res) => {
         setCategories(res.data.data.data);
-        setInformationCategories(res.data);
-        setFilteredData(res.data.data.data);
+        setLinkCategories(res.data.data.links);
+        setTotalCategories(res.data.data.total);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
       });
   };
-  console.log(informationCategories);
+
   useEffect(() => {
     loadCategories();
   }, []);
@@ -64,10 +72,11 @@ const TableCategory = () => {
 
   const searchCategoriesData = (search) => {
     setLoading(true);
-    getCategorySearch(search)
+    getCategorySearch(currentPage, search, limitCategories)
       .then((res) => {
-        setFilteredData(res.data.data.data);
-        setInformationCategories(res.data);
+        setCategories(res.data.data.data);
+        setLinkCategories(res.data.data.links);
+        setTotalCategories(res.data.data.total);
         setLoading(false);
       })
       .catch((error) => {
@@ -82,13 +91,70 @@ const TableCategory = () => {
     if (!query) {
       loadCategories();
     } else {
+      setCurrentPage(1);
       searchCategoriesData(query);
     }
   };
 
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    if (search === "") {
+      setLoading(true);
+      getCategories(pageNumber, limitCategories)
+        .then((res) => {
+          setCategories(res.data.data.data);
+          setLinkCategories(res.data.data.links);
+          setTotalCategories(res.data.data.total);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      getCategorySearch(pageNumber, search, limitCategories)
+        .then((res) => {
+          setCategories(res.data.data.data);
+          setLinkCategories(res.data.data.links);
+          setTotalCategories(res.data.data.total);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    }
+  };
+
+  const handleAddrTypeChange = (e) => {
+    setLoading(true);
+    let new_limit = addrtypeLimit[e.target.value];
+    setLimiCategories(new_limit);
+    getCategories(currentPage, new_limit)
+      .then((res) => {
+        setCategories(res.data.data.data);
+        setLinkCategories(res.data.data.links);
+        setTotalCategories(res.data.data.total);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="block overflow-x-auto mt-5">
-      <div className="w-full flex justify-end my-3">
+      <div className="w-full flex justify-between my-3">
+        <div className="w-1/3 flex items-center">
+          <h1 className="mr-2">Show</h1>
+          <select
+            onChange={(e) => handleAddrTypeChange(e)}
+            className="h-full rounded-sm border block appearance-none w-1/2 bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          >
+            {Add.map((address, key) => (
+              <option value={key}>{address}</option>
+            ))}
+          </select>
+        </div>
         <div className="w-1/2">
           <div className="block relative">
             <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -99,7 +165,7 @@ const TableCategory = () => {
               placeholder="Search"
               value={search}
               onChange={handleSearchChange}
-              className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              className="appearance-none rounded-sm sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
             />
           </div>
         </div>
@@ -122,7 +188,7 @@ const TableCategory = () => {
               </td>
             </tr>
           ) : (
-            filteredData.map((item, index) => {
+            categories.map((item, index) => {
               return (
                 <tr
                   key={index}
@@ -152,7 +218,21 @@ const TableCategory = () => {
       </table>
       <div className="w-full flex justify-between">
         <div className="flex items-center">
-          <h1>Total Data : {informationCategories.data.total}</h1>
+          <h5 className="flex items-center">
+            Total Row :
+            {loading ? (
+              <FaIcons.FaSpinner className=" ml-2 animate-spin" />
+            ) : (
+              <span className=" ml-2">{totalCategories}</span>
+            )}
+          </h5>
+        </div>
+        <div className="flex items-center">
+          <Pagination
+            currentPage_data={currentPage}
+            pages={linkCategories.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </div>
